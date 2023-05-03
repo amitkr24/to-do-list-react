@@ -1,0 +1,17 @@
+#list1 .form-control {
+  border-color: transparent;
+}
+#list1 .form-control:focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+#list1 .select-input.form-control[readonly]:not([disabled]) {
+  background-color: #fbfbfb;
+}
+#list1{
+  border-radius: .75rem; 
+  background-color: #eff1f2;
+}
+.align-middle a {
+  margin: 3px;
+}
