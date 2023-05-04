@@ -6,9 +6,7 @@ import Listing from './components/TaskListing'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <>
     <Listing />
-    </>
   </React.StrictMode>
 );
 

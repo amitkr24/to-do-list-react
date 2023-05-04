@@ -6,28 +6,36 @@ import TaskListing from './TaskListing';
 function Example() {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false)
+    return;
+  };
+  const handleShow = () => {
+    setShow(true)
+    return;
+  };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={()=>handleShow()}>
         Add Task
       </Button>
-      <TaskListing  handleShow={handleShow} />
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={()=>handleClose()}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Task</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+        <Modal.Body>
+          <div className="mb-3">
+            <label for="exampleInputEmail1" className="form-label">Task Name</label>
+            <input type="text" className="form-control" id="exampleInputEmail1"/>
+          </div>
+          <div className='mb-3 submit-btn'>
+            {/* <button type="submit" className="btn btn-primary" onClick={()=>handleClose()}>Submit</button> */}
+            <Button variant="primary" onClick={()=>handleClose()}>
+              Submit
+            </Button>
+          </div>
+        </Modal.Body>
       </Modal>
     </>
   );

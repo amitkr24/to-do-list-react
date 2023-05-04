@@ -3,12 +3,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash,faCheck } from '@fortawesome/free-solid-svg-icons'
 import Example from './Example'
+import EditModal from './EditModal';
+import { useState } from 'react';
 
-function TaskListing(props){
-  console.log('props',props);
+function TaskListing(){
+  const [showEditModal, setShowEditModal] = useState(false)
   return (
     <>
-
       <section className="vh-100" style={{backgroundColor: '#eee'}}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -45,7 +46,8 @@ function TaskListing(props){
                         </td>
                         <td className="align-middle">
                           <a href="#!" data-mdb-toggle="tooltip" title="Done"> <FontAwesomeIcon icon={faCheck} /> </a>
-                          <a href="#!" data-mdb-toggle="tooltip" title="Edit"><FontAwesomeIcon icon={faEdit} /></a>
+                          <span data-mdb-toggle="tooltip" title="Edit" onClick={()=>setShowEditModal(true)}>
+                            <FontAwesomeIcon icon={faEdit} /></span>
                           <a href="#!" data-mdb-toggle="tooltip" title="Remove"><FontAwesomeIcon icon={faTrash} /></a>
                         </td>
                       </tr>
@@ -140,10 +142,9 @@ function TaskListing(props){
                 <div className="card-footer text-end p-3">
                   <button className="me-2 btn btn-link">Cancel</button>
                   <Example/>
-                  <button className="btn btn-primary">Add Task</button>
                 </div>
               </div>
-
+             <EditModal showEditModal={showEditModal} setShowEditModal={setShowEditModal}/>
             </div>
           </div>
         </div>
