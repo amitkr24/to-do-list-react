@@ -6,19 +6,20 @@ const MainContainer = ()=>{
     const [toDoList, setToDoList] = useState([]);
 
     useEffect(() => {
-        const temp = [];
-        if(toDoList.length == 0){
-            fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(response => response.json())
-            .then(json =>{
-                for (let i = 0; i < 10; i++) {
-                    temp.push(json[i]);
-                }
-                setToDoList(temp);
-            })
-        }
+        // fetch data
+        const dataFetch = async () => {
+          const data = await (
+            await fetch(
+              "https://jsonplaceholder.typicode.com/todos?_limit=10"
+            )
+          ).json();
     
-    }, []);
+          // set state when the data received
+          setToDoList(data);
+        };
+    
+        dataFetch();
+      }, []);
 
     return (
         <>
