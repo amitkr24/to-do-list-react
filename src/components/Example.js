@@ -29,7 +29,7 @@ function Example() {
             <label for="exampleInputEmail1" className="form-label">Task Name</label>
             <input type="text" className="form-control" id="exampleInputEmail1"/>
           </div>
-          <div className='mb-3 submit-btn'>
+          <div className='mb-3 submit'>
             {/* <button type="submit" className="btn btn-primary" onClick={()=>handleClose()}>Submit</button> */}
             <Button variant="primary" onClick={()=>handleClose()}>
               Submit

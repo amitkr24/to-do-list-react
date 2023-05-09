@@ -1,15 +1,13 @@
 import { useState } from "react";
-import TaskListing from "./components/TaskListing";
+import MainContainer from "./components/MainContainer";
 
 
 function App() {
-
+console.log('sss');
   return (
-    <div className='gggggg'>
-      <div className="flex flex-col w-screen h-screen bg-slate-50 text-black dark:bg-black dark:text-white">
-        <TaskListing />
-      </div>
-    </div>
+    <>
+     <MainContainer />
+    </>
   );
 }
 
