@@ -1,15 +1,16 @@
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash,faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash,faCheck,faCheckSquare,faCheckCircle,faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import SweetAlert from 'react-bootstrap-sweetalert';
 import Example from './Example'
 import EditModal from './EditModal';
 import { useState } from 'react';
 
-function TaskListing(item){
+function TaskListing(props){
   const [showEditModal, setShowEditModal] = useState(false);
-  console.log('fetchData',item);
-  
+  let items = props.items;
+  console.log(items)
   return (
     <>
       <section className="vh-100" style={{backgroundColor: '#eee'}}>
@@ -26,39 +27,50 @@ function TaskListing(item){
                   <table className="table mb-0">
                     <thead>
                       <tr>
-                        <th scope="col">Team Member</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Task</th>
-                        <th scope="col">Priority</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="fw-normal">
-                        <th>
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
-                            className="shadow-1-strong rounded-circle" alt="avatar 1"
-                            style={{width: '55px', height: 'auto'}}/>
-                          <span className="ms-2">Alice Mayer</span>
-                        </th>
-                        <td className="align-middle">
-                          <span>Call Sam For payments</span>
-                        </td>
-                        <td className="align-middle">
-                          <h6 className="mb-0"><span className="badge bg-danger">High priority</span></h6>
-                        </td>
-                        <td className="align-middle">
-                          <a href="#!" data-mdb-toggle="tooltip" title="Done"> <FontAwesomeIcon icon={faCheck} /> </a>
-                          <span data-mdb-toggle="tooltip" title="Edit" onClick={()=>setShowEditModal(true)}>
-                            <FontAwesomeIcon icon={faEdit} /></span>
-                          <a href="#!" data-mdb-toggle="tooltip" title="Remove"><FontAwesomeIcon icon={faTrash} /></a>
-                        </td>
-                      </tr>
-
+                    {items.map((item) => (
+                     <tr className="fw-normal" key={item.id}>
+                      <td className="align-middle">
+                      < span>{item.id}</span>
+                      </td>
+                      <td className="align-middle">
+                        <span>{item.title}</span>
+                      </td>
+                      <td className="align-middle">
+                        <h6 className="mb-0">
+                          {item.completed ? <span className="badge bg-success">completed</span>:<span className="badge bg-danger">Not Completed</span>}
+                          
+                        </h6>
+                      </td>
+                      <td className="align-middle">
+                        <a href="#!" data-mdb-toggle="tooltip" title="Done"> <FontAwesomeIcon icon={item.completed ? faCheckCircle:faBuildingCircleXmark} /> </a>
+                        <span data-mdb-toggle="tooltip" title="Edit" onClick={()=>setShowEditModal(true)}>
+                          <FontAwesomeIcon icon={faEdit} /></span>
+                        <a href="#!" data-mdb-toggle="tooltip" title="Remove"><FontAwesomeIcon icon={faTrash} /></a>
+                      </td>
+                    </tr>
+                    ))}
                     </tbody>
                   </table>
                 </div>
                 <div className="card-footer text-end p-3">
                   <button className="me-2 btn btn-link">Cancel</button>
+                  <SweetAlert
+                    warning
+                    showCancel
+                    confirmBtnText="Yes"
+                    cancelBtnText="No"
+                    confirmBtnBsStyle="primary"
+                    cancelBtnBsStyle="light"
+                  >
+                    <strong>Are you sure want to complete this task ?</strong>
+                  </SweetAlert>
                   <Example/>
                 </div>
               </div>
