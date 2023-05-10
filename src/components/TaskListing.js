@@ -1,16 +1,32 @@
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash,faCheck,faCheckSquare,faCheckCircle,faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import SweetAlert from 'react-bootstrap-sweetalert';
+import { faEdit, faTrash,faCheck,faCheckSquare,faCheckCircle,faBuildingCircleXmark,faSpinner } from '@fortawesome/free-solid-svg-icons'
 import Example from './Example'
 import EditModal from './EditModal';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 function TaskListing(props){
   const [showEditModal, setShowEditModal] = useState(false);
   let items = props.items;
-  console.log(items)
+  // show confirmation popup before save changes
+  const handleClick = (itemId) => { 
+    Swal.fire({
+      icon: 'warning',
+      title: 'Do you want to save the changes?',
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        console.log('itemId',itemId);
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+  }
   return (
     <>
       <section className="vh-100" style={{backgroundColor: '#eee'}}>
@@ -49,7 +65,7 @@ function TaskListing(props){
                         </h6>
                       </td>
                       <td className="align-middle">
-                        <a href="#!" data-mdb-toggle="tooltip" title="Done"> <FontAwesomeIcon icon={item.completed ? faCheckCircle:faBuildingCircleXmark} /> </a>
+                        <a href={void(0)} data-mdb-toggle="tooltip" title="Done" onClick={() => { handleClick(item.id) }}> <FontAwesomeIcon icon={item.completed ? faCheckCircle:faBuildingCircleXmark} /> </a>
                         <span data-mdb-toggle="tooltip" title="Edit" onClick={()=>setShowEditModal(true)}>
                           <FontAwesomeIcon icon={faEdit} /></span>
                         <a href="#!" data-mdb-toggle="tooltip" title="Remove"><FontAwesomeIcon icon={faTrash} /></a>
@@ -61,16 +77,6 @@ function TaskListing(props){
                 </div>
                 <div className="card-footer text-end p-3">
                   <button className="me-2 btn btn-link">Cancel</button>
-                  <SweetAlert
-                    warning
-                    showCancel
-                    confirmBtnText="Yes"
-                    cancelBtnText="No"
-                    confirmBtnBsStyle="primary"
-                    cancelBtnBsStyle="light"
-                  >
-                    <strong>Are you sure want to complete this task ?</strong>
-                  </SweetAlert>
                   <Example/>
                 </div>
               </div>
