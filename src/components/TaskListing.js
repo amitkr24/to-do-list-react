@@ -20,13 +20,31 @@ function TaskListing(props){
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        console.log('itemId',itemId);
+        props.toggleCompleted(itemId);
         Swal.fire('Saved!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }
     })
   }
+  
+    // show confirmation popup before save changes
+    const deleteTask = (itemId) => { 
+      Swal.fire({
+        icon: 'warning',
+        title: 'Do you want to delete this?',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          props.deleteItems(itemId);
+          Swal.fire('Deleted Successfully !', '', 'success')
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    }
   return (
     <>
       <section className="vh-100" style={{backgroundColor: '#eee'}}>
@@ -65,10 +83,10 @@ function TaskListing(props){
                         </h6>
                       </td>
                       <td className="align-middle">
-                        <a href={void(0)} data-mdb-toggle="tooltip" title="Done" onClick={() => { handleClick(item.id) }}> <FontAwesomeIcon icon={item.completed ? faCheckCircle:faBuildingCircleXmark} /> </a>
-                        <span data-mdb-toggle="tooltip" title="Edit" onClick={()=>setShowEditModal(true)}>
+                        <a href={void(0)} data-mdb-toggle="tooltip" title="Done" onClick={() => { handleClick(item.id) }}> <FontAwesomeIcon icon={faCheckCircle} style={{cursor:'pointer', color : item.completed ? 'green':'#a1a1a1'}}/> </a>
+                        <span style={{cursor:'pointer'}} data-mdb-toggle="tooltip" title="Edit" onClick={()=>setShowEditModal(true)}>
                           <FontAwesomeIcon icon={faEdit} /></span>
-                        <a href="#!" data-mdb-toggle="tooltip" title="Remove"><FontAwesomeIcon icon={faTrash} /></a>
+                        <a href={void(0)} style={{color:'red',cursor:'pointer'}} data-mdb-toggle="tooltip" title="Remove" onClick={()=>deleteTask(item.id)}><FontAwesomeIcon icon={faTrash} /></a>
                       </td>
                     </tr>
                     ))}

@@ -21,9 +21,33 @@ const MainContainer = ()=>{
         dataFetch();
       }, []);
 
+
+    // Task complete/incomplete toggle
+    const toggleCompleted = (item) => {
+        const updatedList = toDoList.map((element => {
+        if (item === element.id) {
+            element.completed = !element.completed ? true : false ;
+        }
+        return element;
+        }));
+
+        setToDoList(updatedList);
+    }
+
+   // Delete an item from list and update accordingly
+    const deleteItems = (item) => {
+        const updatedList = toDoList.filter(element => element.id != item);
+        setToDoList(updatedList);
+    }
+
+    // Add new item to list
+    const addItems = (item) => {
+        const updatedList = toDoList.filter(element => element.id == item);
+        setToDoList(updatedList);
+    }
     return (
         <>
-        <TaskListing items={toDoList}/>
+        <TaskListing items={toDoList} toggleCompleted={toggleCompleted} deleteItems={deleteItems}/>
         </>
     );
     
