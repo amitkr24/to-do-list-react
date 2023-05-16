@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import TaskListing from './TaskListing';
 
-function EditModal({showEditModal,setShowEditModal}) {
+function EditModal({showEditModal,setShowEditModal,showitemTitle,showitemId}) {
 
   const handleClose = () => {
     setShowEditModal(false)
@@ -13,7 +12,7 @@ function EditModal({showEditModal,setShowEditModal}) {
     setShowEditModal(true)
     return;
   };
-
+  console.log('showitemTitl222e',showitemTitle);
   return (
     <>
         <Modal show={showEditModal} onHide={()=>handleClose()}>
@@ -22,8 +21,9 @@ function EditModal({showEditModal,setShowEditModal}) {
             </Modal.Header>
             <Modal.Body>
             <div className="mb-3">
-                <label for="exampleInputEmail1" className="form-label">Task Name</label>
-                <input type="text" className="form-control" id="exampleInputEmail1"/>
+                <label htmlFor="exampleInputEmail1" className="form-label">Task Name</label>
+                <input type="hidden" className="form-control" name="id" defaultValue ={showitemId}/>
+                <input type="text" className="form-control" name="title" defaultValue ={showitemTitle}/>
             </div>
             <div className='mb-3 submit-btn'>
                 {/* <button type="submit" className="btn btn-primary" onClick={()=>handleClose()}>Submit</button> */}

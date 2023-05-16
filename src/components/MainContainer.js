@@ -4,6 +4,7 @@ import TaskListing from "./TaskListing";
 const MainContainer = ()=>{
 
     const [toDoList, setToDoList] = useState([]);
+    const [addtoDoList, setAddToDoList] = useState('');
 
     useEffect(() => {
         // fetch data
@@ -36,18 +37,30 @@ const MainContainer = ()=>{
 
    // Delete an item from list and update accordingly
     const deleteItems = (item) => {
-        const updatedList = toDoList.filter(element => element.id != item);
+        const updatedList = toDoList.filter(element => element.id !== item);
         setToDoList(updatedList);
     }
 
+    const handleChange = (event) => {
+        setAddToDoList(event.target.value)
+    }
+    
     // Add new item to list
-    const addItems = (item) => {
-        const updatedList = toDoList.filter(element => element.id == item);
-        setToDoList(updatedList);
+    const handleAddItems = () => {
+        console.log('addToDoList');
+        let lastElement = toDoList.slice(-1);
+        let Object = {
+            "userId": lastElement[0].userId,
+            "id": parseInt(lastElement[0].id) + 1,
+            "title": addtoDoList,
+            "completed": false
+        }
+        setToDoList([...toDoList, Object]);
+        console.log(setToDoList);
     }
     return (
         <>
-        <TaskListing items={toDoList} toggleCompleted={toggleCompleted} deleteItems={deleteItems}/>
+        <TaskListing items={toDoList} toggleCompleted={toggleCompleted} deleteItems={deleteItems} handleChange={handleChange} handleAddItems={handleAddItems}/>
         </>
     );
     

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import TaskListing from './TaskListing';
 
-function Example() {
+function Example(props) {
   const [show, setShow] = useState(false);
-
+ 
   const handleClose = () => {
+    setShow(false)
+    return;
+  };
+  const handleClose2 = () => {
+    props.handleAddItems();
     setShow(false)
     return;
   };
@@ -27,11 +31,11 @@ function Example() {
         <Modal.Body>
           <div className="mb-3">
             <label for="exampleInputEmail1" className="form-label">Task Name</label>
-            <input type="text" className="form-control" id="exampleInputEmail1"/>
+            <input type="text" className="form-control" id="exampleInputEmail1" onChange={props.handleChange}/>
           </div>
           <div className='mb-3 submit'>
             {/* <button type="submit" className="btn btn-primary" onClick={()=>handleClose()}>Submit</button> */}
-            <Button variant="primary" onClick={()=>handleClose()}>
+            <Button variant="primary" onClick={handleClose2}>
               Submit
             </Button>
           </div>
