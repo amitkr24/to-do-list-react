@@ -2,9 +2,14 @@ import React  from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function EditModal({showEditModal,setShowEditModal,showitemTitle,showitemId}) {
+function EditModal({showEditModal,setShowEditModal,showitemTitle,setshowitemTitle,showitemId,handleUpdateItem}) {
 
   const handleClose = () => {
+    setShowEditModal(false)
+    return;
+  };
+  const handleCloseAndUpdate = () => {
+    handleUpdateItem();
     setShowEditModal(false)
     return;
   };
@@ -12,7 +17,9 @@ function EditModal({showEditModal,setShowEditModal,showitemTitle,showitemId}) {
     setShowEditModal(true)
     return;
   };
-  console.log('showitemTitl222e',showitemTitle);
+  const handleChange = (event) => {
+    setshowitemTitle(event.target.value);
+}
   return (
     <>
         <Modal show={showEditModal} onHide={()=>handleClose()}>
@@ -23,11 +30,11 @@ function EditModal({showEditModal,setShowEditModal,showitemTitle,showitemId}) {
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Task Name</label>
                 <input type="hidden" className="form-control" name="id" defaultValue ={showitemId}/>
-                <input type="text" className="form-control" name="title" defaultValue ={showitemTitle}/>
+                <input type="text" className="form-control" name="title" defaultValue ={showitemTitle} onChange={handleChange}/>
             </div>
             <div className='mb-3 submit-btn'>
                 {/* <button type="submit" className="btn btn-primary" onClick={()=>handleClose()}>Submit</button> */}
-                <Button variant="primary" onClick={()=>handleClose()}>
+                <Button variant="primary" onClick={()=>handleCloseAndUpdate()}>
                 Update
                 </Button>
             </div>

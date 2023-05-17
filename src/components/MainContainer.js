@@ -5,6 +5,8 @@ const MainContainer = ()=>{
 
     const [toDoList, setToDoList] = useState([]);
     const [addtoDoList, setAddToDoList] = useState('');
+    const [showitemTitle, setshowitemTitle] = useState('');
+    const [showitemId, setshowitemId] = useState('');
 
     useEffect(() => {
         // fetch data
@@ -44,10 +46,9 @@ const MainContainer = ()=>{
     const handleChange = (event) => {
         setAddToDoList(event.target.value)
     }
-    
+
     // Add new item to list
     const handleAddItems = () => {
-        console.log('addToDoList');
         let lastElement = toDoList.slice(-1);
         let Object = {
             "userId": lastElement[0].userId,
@@ -56,11 +57,31 @@ const MainContainer = ()=>{
             "completed": false
         }
         setToDoList([...toDoList, Object]);
-        console.log(setToDoList);
+    }
+
+    // update item to list 
+    const handleUpdateItem = () => {
+        
+        for(let item of toDoList){
+            if(item.id === showitemId){
+                item.title = showitemTitle;
+            }
+        }
     }
     return (
         <>
-        <TaskListing items={toDoList} toggleCompleted={toggleCompleted} deleteItems={deleteItems} handleChange={handleChange} handleAddItems={handleAddItems}/>
+            <TaskListing 
+                items={toDoList} 
+                toggleCompleted={toggleCompleted} 
+                deleteItems={deleteItems} 
+                handleChange={handleChange} 
+                handleAddItems={handleAddItems}
+                setshowitemTitle={setshowitemTitle}
+                showitemTitle={showitemTitle}
+                setshowitemId={setshowitemId}
+                showitemId={showitemId}
+                handleUpdateItem={handleUpdateItem}
+            />
         </>
     );
     

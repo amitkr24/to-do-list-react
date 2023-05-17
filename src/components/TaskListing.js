@@ -9,8 +9,6 @@ import Swal from 'sweetalert2';
 
 function TaskListing(props){
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showitemTitle, setshowitemTitle] = useState('');
-  const [showitemId, setshowitemId] = useState('');
   let items = props.items;
   // show confirmation popup before save changes
   const handleClick = (itemId) => { 
@@ -50,8 +48,8 @@ function TaskListing(props){
     }
     
     const editItem = (title,id) => {
-      setshowitemTitle(title);
-      setshowitemId(id)
+      props.setshowitemTitle(title);
+      props.setshowitemId(id)
       setShowEditModal(true);
     }
   return (
@@ -108,7 +106,14 @@ function TaskListing(props){
                 </div>
                 
               </div>
-             <EditModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} showitemTitle={showitemTitle} showitemId = {showitemId}/>
+            <EditModal 
+              showEditModal={showEditModal} 
+              setShowEditModal={setShowEditModal} 
+              showitemTitle={props.showitemTitle} 
+              setshowitemTitle={props.setshowitemTitle}
+              showitemId = {props.showitemId}
+              handleUpdateItem={props.handleUpdateItem}
+            />
             </div>
           </div>
         </div>
