@@ -30,7 +30,7 @@ function Example(props) {
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Task Name</label>
+            <label htmlFor="exampleInputEmail1" className="form-label">Task Name</label>
             <input type="text" className="form-control" id="exampleInputEmail1" onChange={props.handleChange}/>
           </div>
           <div className='mb-3 submit'>
